@@ -2,15 +2,13 @@
 
 ```gradle
 // load the plugin
-buildscript {
-	repositories { maven { url "https://plugins.gradle.org/m2/" } }
-	dependencies { classpath "gradle.plugin.com.zoltu:application-agent:1.0.6" }
+plugins {
+	id "com.zoltu.application-agent" version "1.0.8"
 }
 
-apply plugin: 'java'
+// note: this plugin depends on the `application` plugin so the following line is redundant; it is included here for clarity
 apply plugin: 'application'
-// 'application-agent' plugin must be applied *after* 'application' plugin
-apply plugin: 'com.zoltu.application-agent'
+apply plugin: 'java'
 
 // all of these are optional and default to true
 applicationAgent {
