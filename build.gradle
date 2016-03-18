@@ -1,0 +1,23 @@
+plugins {
+	id 'com.zoltu.git-versioning' version '2.0.1'
+	id 'com.zoltu.simple-gradle-plugin-publisher' version '1.0.4'
+}
+
+apply plugin: 'groovy'
+
+dependencies {
+	compile gradleApi()
+	compile localGroovy()
+}
+
+group 'com.zoltu'
+
+simpleGradlePluginPublishConfiguration {
+	gradlePublishKey = System.getenv('GRADLE_PUBLISH_KEY')
+	gradlePublishSecret = System.getenv('GRADLE_PUBLISH_SECRET')
+	vcsUrl = 'https://github.com/Zoltu/application-agent-gradle-plugin'
+	id = 'com.zoltu.application-agent'
+	displayName = 'application-agent'
+	description = 'A Gradle plugin for hooking up a Java Agent to tests and the Gradle Application plugin.'
+	tags = ['']
+}
