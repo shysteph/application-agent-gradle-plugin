@@ -2,10 +2,13 @@ package com.zoltu
 
 import org.gradle.api.Project
 import org.gradle.api.Plugin
+import org.gradle.api.plugins.ApplicationPlugin
 import org.gradle.api.tasks.testing.Test
 
 class ApplicationAgentPlugin implements Plugin<Project> {
 	void apply(Project project) {
+		project.getPlugins().apply(ApplicationPlugin.class)
+
 		project.extensions.create("applicationAgent", ApplicationAgentPluginExtension)
 
 		project.configurations {
