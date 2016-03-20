@@ -13,7 +13,7 @@ class ApplicationAgentPlugin implements Plugin<Project> {
 
 		project.configurations {
 			agent
-			runtime.extendsFrom('agent')
+			runtime.extendsFrom(agent)
 		}
 
 		project.startScripts {
