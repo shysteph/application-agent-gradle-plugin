@@ -42,7 +42,7 @@ class ApplicationAgentPlugin implements Plugin<Project> {
 					return
 
 				project.configurations.agent.each { agent ->
-					jvmArgs += [ "-javaagent:${project.configurations.agent.singleFile.path}" ]
+					jvmArgs += [ "-javaagent:${agent.path}" ]
 				}
 			}
 		}
