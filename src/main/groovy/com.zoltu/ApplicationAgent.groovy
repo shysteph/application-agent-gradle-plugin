@@ -13,6 +13,7 @@ class ApplicationAgentPlugin implements Plugin<Project> {
 
 		project.configurations {
 			agent
+			runtime.extendsFrom('agent')
 		}
 
 		project.startScripts {
@@ -20,16 +21,18 @@ class ApplicationAgentPlugin implements Plugin<Project> {
 				if (!project.applicationAgent.applyToStartScripts)
 					return
 
-				String agentFileName = project.configurations.agent.singleFile.name
+				project.configurations.agent.each { agent ->
+					String agentFileName = agent.name
 
-				String forwardSlash = "/"
-				String unixRegex = $/exec "$$JAVACMD" "$${JVM_OPTS[@]}"/$
-				String unixReplacement = $/exec "$$JAVACMD" -javaagent:"$$APP_HOME/lib${forwardSlash}${agentFileName}" "$${JVM_OPTS[@]}"/$
-				unixScript.text = unixScript.text.replace(unixRegex, unixReplacement)
+					String forwardSlash = "/"
+					String unixRegex = $/exec "$$JAVACMD" "$${JVM_OPTS[@]}"/$
+					String unixReplacement = $/exec "$$JAVACMD" "$${JVM_OPTS[@]}" -javaagent:"$$APP_HOME/lib${forwardSlash}${agentFileName}"/$
+					unixScript.text = unixScript.text.replace(unixRegex, unixReplacement)
 
-				String windowsRegex = $/"%JAVA_EXE%" %DEFAULT_JVM_OPTS%/$
-				String windowsReplacement = $/"%JAVA_EXE%" -javaagent:"%APP_HOME%\lib\$agentFileName" %DEFAULT_JVM_OPTS%/$
-				windowsScript.text = windowsScript.text.replace(windowsRegex, windowsReplacement)
+					String windowsRegex = $/"%JAVA_EXE%" %DEFAULT_JVM_OPTS%/$
+					String windowsReplacement = $/"%JAVA_EXE%" %DEFAULT_JVM_OPTS% -javaagent:"%APP_HOME%\lib\$agentFileName"/$
+					windowsScript.text = windowsScript.text.replace(windowsRegex, windowsReplacement)
+				}
 			}
 		}
 
@@ -38,7 +41,9 @@ class ApplicationAgentPlugin implements Plugin<Project> {
 				if (!project.applicationAgent.applyToTests)
 					return
 
-				jvmArgs "-javaagent:${project.configurations.agent.singleFile.path}"
+				project.configurations.agent.each { agent ->
+					jvmArgs += [ "-javaagent:${project.configurations.agent.singleFile.path}" ]
+				}
 			}
 		}
 
@@ -47,9 +52,9 @@ class ApplicationAgentPlugin implements Plugin<Project> {
 				if (!project.applicationAgent.applyToRun)
 					return
 
-				project.applicationDefaultJvmArgs += [
-						"-javaagent:${project.configurations.agent.singleFile.path}"
-				]
+				project.configurations.agent.each { agent ->
+					project.applicationDefaultJvmArgs += [ "-javaagent:${agent.path}" ]
+				}
 			}
 		}
 	}
