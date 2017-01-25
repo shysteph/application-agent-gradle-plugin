@@ -10,13 +10,13 @@ dependencies {
 	compile localGroovy()
 }
 
-group 'com.zoltu'
+group 'com.shysteph'
 
 simpleGradlePluginPublishConfiguration {
-	gradlePublishKey = System.getenv('GRADLE_PUBLISH_KEY')
-	gradlePublishSecret = System.getenv('GRADLE_PUBLISH_SECRET')
-	vcsUrl = 'https://github.com/Zoltu/application-agent-gradle-plugin'
-	id = 'com.zoltu.application-agent'
+	gradlePublishKey = project.key
+	gradlePublishSecret = project.secret
+	vcsUrl = 'https://github.com/shysteph/application-agent-gradle-plugin'
+	id = 'com.shysteph.application-agent'
 	displayName = 'application-agent'
 	description = 'A Gradle plugin for hooking up a Java Agent.  This plugin will attach the agent you specify to the `run`, `test` and `installDist` tasks.  To use it, add an `agent` dependency to your dependencies like `dependencies { agent("com.foo:bar:1.2.3") }`.'
 	tags = ['application', 'agent', 'startScripts', 'run']
