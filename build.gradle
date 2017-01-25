@@ -3,11 +3,17 @@ plugins {
 	id 'com.zoltu.simple-gradle-plugin-publisher' version '1.0.5'
 }
 
+repositories {
+  mavenLocal()
+  jcenter()
+}
+
 apply plugin: 'groovy'
 
 dependencies {
 	compile gradleApi()
 	compile localGroovy()
+	compile group: 'org.springframework.boot', name: 'spring-boot-gradle-plugin', version: '1.4.3.RELEASE'
 }
 
 group 'com.shysteph'
