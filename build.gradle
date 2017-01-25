@@ -18,6 +18,6 @@ simpleGradlePluginPublishConfiguration {
 	vcsUrl = 'https://github.com/shysteph/application-agent-gradle-plugin'
 	id = 'com.shysteph.application-agent'
 	displayName = 'application-agent'
-	description = 'A Gradle plugin for hooking up a Java Agent.  This plugin will attach the agent you specify to the `run`, `test` and `installDist` tasks.  To use it, add an `agent` dependency to your dependencies like `dependencies { agent("com.foo:bar:1.2.3") }`.'
+	description = 'A Gradle plugin for hooking up a Java Agent.  This plugin will attach the agent you specify to the `run`, `test` and `installDist` tasks.  To use it, add an `agent` dependency to your dependencies like `dependencies { agent("com.foo:bar:1.2.3") }`.  Credit for initial implementation to MicahZoltu https://github.com/zoltu/application-agent-gradle-plugin.'
 	tags = ['application', 'agent', 'startScripts', 'run']
 }

@@ -3,7 +3,7 @@
 ```gradle
 // load the plugin
 plugins {
-	id "com.zoltu.application-agent" version "1.0.8"
+	id "com.shysteph.application-agent" version "1.0.14"
 }
 
 // note: this plugin depends on the `application` plugin so the following line is redundant; it is included here for clarity
