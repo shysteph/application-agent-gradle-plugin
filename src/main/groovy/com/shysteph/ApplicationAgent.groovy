@@ -64,7 +64,7 @@ class ApplicationAgentPlugin implements Plugin<Project> {
       doFirst {
         project.configurations.agent.each { agent ->
           String agentFileName = agent.absolutePath
-          bootRunTask.jvmArgs.add("-javaagent:${agentFileName}")
+          bootRunTask.jvmArgs += ["-javaagent:${agentFileName}"]
         }
       }
     }
