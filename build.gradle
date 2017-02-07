@@ -1,6 +1,13 @@
 plugins {
-	id 'com.zoltu.git-versioning' version '2.0.8'
-	id 'com.zoltu.simple-gradle-plugin-publisher' version '1.0.5'
+  id 'com.gradle.plugin-publish' version '0.9.7'
+  id 'nebula.plugin-plugin' version '5.1.0'
+}
+
+contacts {
+  'stephanie@shysteph.com' {
+  	moniker 'Stephanie Miller'
+  	github 'shysteph'
+  }
 }
 
 repositories {
@@ -9,21 +16,30 @@ repositories {
 }
 
 apply plugin: 'groovy'
+apply plugin: 'signing'
 
 dependencies {
-	compile gradleApi()
-	compile localGroovy()
-	compile group: 'org.springframework.boot', name: 'spring-boot-gradle-plugin', version: '1.4.3.RELEASE'
+  compile gradleApi()
+  compile localGroovy()
+  compile group: 'org.springframework.boot', name: 'spring-boot-gradle-plugin', version: '1.4.3.RELEASE'
 }
 
-group 'com.shysteph'
+tasks.bintrayUpload.enabled = true
+tasks.artifactoryPublish.enabled = false
 
-simpleGradlePluginPublishConfiguration {
-	gradlePublishKey = project.key
-	gradlePublishSecret = project.secret
-	vcsUrl = 'https://github.com/shysteph/application-agent-gradle-plugin'
-	id = 'com.shysteph.application-agent'
-	displayName = 'application-agent'
-	description = 'A Gradle plugin for hooking up a Java Agent.  This plugin will attach the agent you specify to the `run`, `test` and `installDist` tasks.  To use it, add an `agent` dependency to your dependencies like `dependencies { agent("com.foo:bar:1.2.3") }`.  Credit for initial implementation to MicahZoltu https://github.com/zoltu/application-agent-gradle-plugin.'
-	tags = ['application', 'agent', 'startScripts', 'run']
+group = 'com.shysteph'
+
+pluginBundle {
+  website = 'https://github.com/shysteph/application-agent-gradle-plugin'
+  vcsUrl = 'https://github.com/shysteph/application-agent-gradle-plugin.git'
+
+  description = 'A Gradle plugin for hooking up a Java Agent.'
+  plugins {
+  	applicationAgent {
+  		id = "com.shysteph.application-agent"
+  		displayName = 'Gradle Application Agent Plugin'
+  		description = 'This plugin will attach the agent you specify to the `run`, `test` and `installDist` tasks.  To use it, add an `agent` dependency to your dependencies like `dependencies { agent("com.foo:bar:1.2.3") }`.  Credit for initial implementation to MicahZoltu https://github.com/zoltu/application-agent-gradle-plugin.'
+  		tags = ['application', 'agent', 'startScripts', 'run']
+  	}
+  }
 }
