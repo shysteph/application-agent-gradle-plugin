@@ -24,9 +24,6 @@ dependencies {
   compile group: 'org.springframework.boot', name: 'spring-boot-gradle-plugin', version: '1.4.3.RELEASE'
 }
 
-tasks.bintrayUpload.enabled = true
-tasks.artifactoryPublish.enabled = false
-
 group = 'com.shysteph'
 
 pluginBundle {
